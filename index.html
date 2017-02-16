@@ -41,6 +41,9 @@
   // Score
   var score = 0;
 
+  // lives
+  var lives = 3;
+
 // Briks generation
   var bricks = [];
   for(c=0; c<brickColumnCount; c++) {
@@ -48,6 +51,12 @@
       for(r=0; r<brickRowCount; r++) {
           bricks[c][r] = { x: 0, y: 0, status: 1};
       }
+  }
+
+  function drawLives() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Lives: "+lives, canvas.width-65, 20);
   }
 
   function drawScore() {
@@ -115,6 +124,7 @@
     drawBall();
     drawPaddle();
     drawScore();
+    drawLives();
     collisionDetection();
     x += dx;
     y += dy;
@@ -128,8 +138,18 @@
           dy = -dy;
         }
         else {
-          alert("GAME OVER");
-          document.location.reload();
+          lives--;
+          if(!lives) {
+              alert("GAME OVER");
+              document.location.reload();
+          }
+          else {
+              x = canvas.width/2;
+              y = canvas.height-30;
+              dx = 2;
+              dy = -2;
+              paddleX = (canvas.width-paddleWidth)/2;
+          }
         }
     }
     if(rightPressed && paddleX < canvas.width-paddleWidth) {
