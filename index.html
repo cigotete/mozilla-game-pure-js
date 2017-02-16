@@ -158,12 +158,14 @@
     else if(leftPressed && paddleX > 0) {
       paddleX -= 7;
     }
+  requestAnimationFrame(draw);
   }
+
 
   document.addEventListener("keydown", keyDownHandler, false);
   document.addEventListener("keyup", keyUpHandler, false);
   document.addEventListener("mousemove", mouseMoveHandler, false);
-  setInterval(draw, 10);
+  draw();
 
   function mouseMoveHandler(e) {
     var relativeX = e.clientX - canvas.offsetLeft;
